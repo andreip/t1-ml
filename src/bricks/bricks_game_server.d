@@ -63,10 +63,10 @@ class BricksGameServer {
     client1 = server.accept();
     CLS cls1 = new CLS();
     l = client1.receive(buf);
-    cls1.addText(buf[0 .. l]);
+    cls1.addText(buf[0 .. cast(uint)l]);
     while(!cls1.hasLine) {
       l = client1.receive(buf);
-      cls1.addText(buf[0 .. l]);
+      cls1.addText(buf[0 .. cast(uint)l]);
     }
     msg1 = cls1.getLine();
 
@@ -77,10 +77,10 @@ class BricksGameServer {
     client2 = server.accept();
     CLS cls2 = new CLS();
     l = client2.receive(buf);
-    cls2.addText(buf[0 .. l]);
+    cls2.addText(buf[0 .. cast(uint)l]);
     while(!cls2.hasLine) {
       l = client2.receive(buf);
-      cls2.addText(buf[0 .. l]);
+      cls2.addText(buf[0 .. cast(uint)l]);
     }
     msg2 = cls2.getLine();
 
@@ -124,10 +124,10 @@ class BricksGameServer {
         // receive message from brickmaker
         CLS clsMaker = new CLS();
         l = brickmaker.receive(buf);
-        clsMaker.addText(buf[0 .. l]);
+        clsMaker.addText(buf[0 .. cast(uint)l]);
         while(!clsMaker.hasLine) {
           l = brickmaker.receive(buf);
-          clsMaker.addText(buf[0 .. l]);
+          clsMaker.addText(buf[0 .. cast(uint)l]);
         }
         nextBrick = clsMaker.getLine()[0];
         assert(nextBrick >= 'A' && nextBrick <= 'G');
@@ -141,10 +141,10 @@ class BricksGameServer {
         // receive message from bricklayer
         CLS clsLayer = new CLS();
         l = bricklayer.receive(buf);
-        clsLayer.addText(buf[0 .. l]);
+        clsLayer.addText(buf[0 .. cast(uint)l]);
         while(!clsLayer.hasLine) {
           l = bricklayer.receive(buf);
-          clsLayer.addText(buf[0 .. l]);
+          clsLayer.addText(buf[0 .. cast(uint)l]);
         }
 
         int[] args = to!(int[])("[" ~ clsLayer.getLine() ~ "]");

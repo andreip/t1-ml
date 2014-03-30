@@ -1,5 +1,7 @@
 build/
 *~
+*.sw*
+*.o
 \#*#
 score*
 bricks_server

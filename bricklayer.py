@@ -44,6 +44,17 @@ class BrickLayer:
                 action = next_action
             line = next_line
 
+            #
+            # This would be caught by test_loop_continue_after_game_over.
+            #
+            # In case line is GAME OVER, we want the while loop to
+            # keep the invariant that getting next_line, we already
+            # have an active line (different than GAME OVER).
+            if 'GAME OVER' in line:
+                line = self.myreceive()
+                if line:
+                    action = self.sarsa.get_action(line)
+
     def mysend(self, msg):
         totalsent = 0
         while totalsent < len(msg):

@@ -20,6 +20,8 @@ import std.string;
 import std.array;
 import std.conv;
 
+alias std.string.indexOf indexOf;
+
 class ContinuousLineSplitter(T) {
   private string buffer;
 

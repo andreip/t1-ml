@@ -24,6 +24,14 @@ class TestBricklayerBoard(unittest.TestCase):
         # Two board rotated 0 and 180 degrees, 8 for the others.
         self.assertEqual(len(actions), 10)
 
+    def test_get_legal_actions(self):
+        boardStr = "| #  |  # |   #|"
+        brick = 'B'
+        Board = BricklayerBoard(boardStr)
+        actions = Board.get_legal_actions(brick)
+        # Two for 0,180 degrees, 3 for rest.
+        self.assertEqual(len(actions), 10)
+
     def test_board_levels(self):
         boardStr = "| #  |  # |   #|"
         Board = BricklayerBoard(boardStr)

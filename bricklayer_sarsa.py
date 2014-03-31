@@ -8,10 +8,13 @@ lengths =\
     {'A':[4,1],'B':[3,2],'C':[3,2],'D':[3, 2],'E':[3,2],'F':[3,2],'G':[2,2]}
 
 class BricklayerSarsa:
-    """Bricklayer class which deals with remembering
-       SARSA learning specifics like:
+    """Bricklayer class which deals with remembering SARSA learning specifics
+    like:
        - state-action mappings and their utility
        - parameters like alpha (learning rate).
+
+    For more detailed information about how we represent Tetris states,
+    check the README file.
     """
 
     def __init__(self, height, length, alpha=0.1, eps=0.1):

@@ -2,6 +2,7 @@ build/
 *~
 *.sw*
 *.o
+*.pyc*
 \#*#
 score*
 bricks_server

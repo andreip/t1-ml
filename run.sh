@@ -15,6 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+if [[ $# -eq 1 ]]; then
+  PORT_SERVER_1=$1
+else
+  PORT_SERVER_1=35000
+fi
+echo $PORT_SERVER_1
+
 get_free_port()
 {
     Port=35000
@@ -34,15 +41,12 @@ launch_round()
 }
 
 make build
-
-PORT_SERVER_1=35000
-#get_free_port PORT_SERVER_1
 launch_round $PORT_SERVER_1 4 4 score1 distributions/dist1
 
-PORT_SERVER_2=35001
-#get_free_port PORT_SERVER_2
-launch_round $PORT_SERVER_2 8 5 score2 distributions/dist2
-
-PORT_SERVER_3=35002
-#get_free_port PORT_SERVER_3
-launch_round $PORT_SERVER_3 8 6 score3 distributions/dist3
+#PORT_SERVER_2=35001
+##get_free_port PORT_SERVER_2
+#launch_round $PORT_SERVER_2 8 5 score2 distributions/dist2
+#
+#PORT_SERVER_3=35002
+##get_free_port PORT_SERVER_3
+#launch_round $PORT_SERVER_3 8 6 score3 distributions/dist3

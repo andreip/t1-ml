@@ -69,7 +69,8 @@ class BricklayerSarsa:
         board_state = BricklayerBoard(boardStr).get_board_diff_levels()
         state_key = (board_state, action)
 
-        [reward, next_boardStr, _] = next_line.split(',')
+        [rewardStr, next_boardStr, _] = next_line.split(',')
+        reward = int(rewardStr)
         next_board_state =\
             BricklayerBoard(next_boardStr).get_board_diff_levels()
         next_state_key = (next_board_state, next_action)

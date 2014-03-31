@@ -17,10 +17,7 @@
 
 
 import socket
-import random
-
-lengths =\
-    {'A':[4,1],'B':[3,2],'C':[3,2],'D':[3, 2],'E':[3,2],'F':[3,2],'G':[2,2]}
+from bricklayer_sarsa import BricklayerSarsa
 
 class BrickLayer:
     """Demo BrickLayer
@@ -32,15 +29,16 @@ class BrickLayer:
         self.mysend("BRICKLAYER\n")
         self.buffer = b''
         firstLine = self.myreceive()
-        [self.height, self.length] = map(lambda x: int(x), firstLine.split(','))
+        [height, length] = map(lambda x: int(x), firstLine.split(','))
+        self.sarsa = BricklayerSarsa(height, length)
 
     def loop(self):
         line = self.myreceive();
         while line:
             if "GAME OVER" not in line:
-                rot = random.randint(0, 3)
-                max_offset = self.length - lengths[line[-1]][rot % 2]
-                offset = random.randint(0, max_offset)
+                # Line is of the form:
+                # REWARD, STATE, BRICK
+                [rot, offset] = self.sarsa.get_action(line)
                 msg = str(rot) + "," + str(offset) + "\n"
                 self.mysend(msg)
             line = self.myreceive()

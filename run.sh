@@ -40,7 +40,7 @@ launch_round()
     eval "./bricklayer.py $1 &"
 }
 
-make build
+make -f Makefile.compile_d build
 launch_round $PORT_SERVER_1 4 4 score1 distributions/dist1
 
 #PORT_SERVER_2=35001

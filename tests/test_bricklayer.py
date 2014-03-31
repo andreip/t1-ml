@@ -20,17 +20,17 @@ class TestBricklayer(unittest.TestCase):
         This is important because SARSA should learn from mistakes too.
         """
         line = "0,|    |    |    |,A"
+        game_over = '-20,GAME OVER'
         action = (1,0)
 
         # Receive should return 'GAME OVER' at 2nd call.
-        self.bricklayer.myreceive = MagicMock(side_effect=[line, 'GAME OVER',
-                                                           ''])
+        self.bricklayer.myreceive = MagicMock(side_effect=[line, game_over, ''])
         self.bricklayer.sarsa = MagicMock()
         self.bricklayer.sarsa.get_action = MagicMock(side_effect=[action, None])
 
         self.bricklayer.loop()
         self.bricklayer.sarsa.update_utilities.assert_called_with(line,
-            action, 'GAME OVER', None)
+            action, game_over, None)
 
 if __name__ == '__main__':
     unittest.main()

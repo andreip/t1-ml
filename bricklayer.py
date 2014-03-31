@@ -25,8 +25,11 @@ class BrickLayer:
     def loop(self):
         line = self.myreceive()
         action = self.sarsa.get_action(line)
+        # We should not receive GAME OVER from the start.
+        assert(line != 'GAME OVER')
+
         while line:
-            if "GAME OVER" not in line:
+            if 'GAME OVER' not in line:
                 (rot, offset) = action
                 msg = str(rot) + "," + str(offset) + "\n"
                 self.mysend(msg)

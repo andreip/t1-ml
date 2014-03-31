@@ -28,6 +28,30 @@ class TestBricklayerSarsa(unittest.TestCase):
 
         self.sarsa.update_utilities(line, action, next_line, next_action)
 
+    def test_update_utilities_game_over(self):
+        """Test GAME OVER does decrease utility.
+
+        It should update the mapping (s,a) to a lower value than the
+        previous one, because IT'S BAD to get here, and it should
+        learn :).
+        """
+        line = '0,|#   |    |    |    |,A'
+        board = BricklayerBoard(line.split(',')[1])
+        length, height = len(board.board[0]), len(board.board)
+        sarsa = BricklayerSarsa(height, length)
+
+        action = (1,0)
+        next_line = '-20,GAME OVER'
+        next_action = None
+
+        # Get old value before calling update_utilities.
+        state_key = sarsa.get_state_key_from_line(line, action)
+        old_value = sarsa.maps[state_key]
+
+        self.sarsa.update_utilities(line, action, next_line, next_action)
+        new_value = sarsa.maps[state_key]
+        self.assertTrue(old_value > new_value)
+
     def test_get_action_greedy(self):
         line = '0,|    | #  |  # |   #|,A'
         board = BricklayerBoard(line.split(',')[1])

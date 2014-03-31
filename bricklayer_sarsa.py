@@ -69,19 +69,22 @@ class BricklayerSarsa:
                        by taking an action from get_action(line).
                        It also contains information about reward.
         """
-        [_, boardStr, _] = line.split(',')
-        board_state = BricklayerBoard(boardStr).get_board_diff_levels()
-        state_key = (board_state, action)
-
-        [rewardStr, next_boardStr, _] = next_line.split(',')
-        reward = int(rewardStr)
-        next_board_state =\
-            BricklayerBoard(next_boardStr).get_board_diff_levels()
-        next_state_key = (next_board_state, next_action)
+        state_key = self.get_state_key_from_line(line, action)
+        next_state_key = self.get_state_key_from_line(next_line, next_action)
+        reward = int(next_line.split(',')[0])
 
         # Update the utilities based from state_key based on next_state_key.
         self.maps[state_key] = (1-self.alpha) * self.maps[state_key] +\
             self.alpha * (reward + self.gamma * self.maps[next_state_key])
+
+    def get_state_key_from_line(self, line, action):
+        if 'GAME OVER' in line:
+            [rewardStr, boardStr] = line.split(',')
+            return (boardStr, action)
+        else:
+            [_, boardStr, _] = line.split(',')
+            board_state = BricklayerBoard(boardStr).get_board_diff_levels()
+            return (board_state, action)
 
     def __get_action_greedy(self, board_state, legal_actions):
         """Compute a list of possible (legal) moves from a given

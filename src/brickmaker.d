@@ -119,6 +119,8 @@ void main(string[] args) {
     }
     l = socket.receive(buf);
   }
+  socket.close();
+  writeln("bye (brickmaker)");
 
   return;
 }

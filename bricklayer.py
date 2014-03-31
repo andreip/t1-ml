@@ -71,3 +71,5 @@ if __name__ == "__main__":
         port = 9923
     bricklayer = BrickLayer(port)
     bricklayer.loop()
+    bricklayer.socket.close()
+    print 'bye (bricklayer)'

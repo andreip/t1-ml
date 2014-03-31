@@ -32,7 +32,7 @@ class BricklayerBoard:
         diff = []
         for i in range(1, len(levels)):
             diff.append(abs(levels[i-1] - levels[i]))
-        return diff
+        return tuple(diff)
 
     def get_board_levels(self):
         """Returns an array of all columns' levels.
@@ -54,9 +54,4 @@ class BricklayerBoard:
             for c, cell in enumerate(line):
                 if cell == BricklayerBoard.BRICK and levels[c] < level:
                     levels[c] = level
-        return levels
-
-    def do_move(self, action):
-        """Returns a new board based on the action.
-        """
-        pass
+        return tuple(levels)

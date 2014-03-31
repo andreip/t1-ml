@@ -35,8 +35,8 @@ class TestBricklayerBoard(unittest.TestCase):
     def test_board_levels(self):
         boardStr = "| #  |  # |   #|"
         Board = BricklayerBoard(boardStr)
-        self.assertEqual(Board.get_board_levels(), [0,3,2,1])
-        self.assertEqual(Board.get_board_diff_levels(), [3,1,1])
+        self.assertEqual(Board.get_board_levels(), (0,3,2,1))
+        self.assertEqual(Board.get_board_diff_levels(), (3,1,1))
 
 if __name__ == '__main__':
     unittest.main()

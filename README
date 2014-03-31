@@ -1,0 +1,54 @@
+# Petre Andrei, 342 C3
+
+Idei reprezentari stari
+=======================
+
+L - #linii
+C - #coloane
+
+Folodind idei din [1], am decis sa aleg urmatoarele strategii (calcule facute
+pentru o tabla generica de L x C):
+- folosind Skyline, voi retine doar o lista de diferente intre coloane adiacente
+  e.g. fie hi, hj doua coloane adiacente, atunci D = |hi - hj|
+- folosind Resolution, voi considera ca de la un prag in colo ales, Prag, nu mai
+  conteaza diferenta D din Skyline, astfel ea devine
+  D = min(Prag, |hi - hj|), unde Prag e hardcodat la o valoare, e.g. Prag = 7.
+- folosind Simetria starilor voi putea reduce numarul de stari retinute la
+  jumatate (foarte importanta!).
+
+
+Stari tabla, general
+====================
+
+* numarul maxim de stari ar fi 2^(L*C), fiindca fiecare celula poate fi ocupata
+sau goala.
+* folosind Skyline, retinem doar D = |hi - hj|, deci vom avea maxim
+  L^(C-1) stari, rationand ca pentru doua hi,hj coloane adiacente avem maxim L
+  valori
+* folosind Prag, reducem la cel mult 7^(C-1) stari, pentru ca L nu poate depasii
+  acel Prag (nu consideram utila informatia dincolo de un prag).
+* folosind Simetria, rezulta 7^(C-1) / 2 stari pe tabla.
+
+
+Concret, numar stari, inclusiv piese
+====================================
+
+Pentru maxim LxC = 10x6, avem un numar de stari Prag^5 / 2. Fie Prag = 5, deci
+maxim 1562 stari < 2^11 stari.
+
+Avem 7 piese (A-G):
+=> o piesa are 2^2 miscari stanga (medie) x 2^2 rotiri = 2^4 miscari
+=> maxim 2^3 piese x 2^4 miscari fiecare = 2^7 stari piese
+
+
+Total
+-----
+
+=> Maxim stari folosind ideile prezentate este:
+
+  2^7 stari piese * 2^11 stari tabla = 2^18 stari totale
+
+, reprezentabil intr-un calculator modern fara prea mari batai de cap.
+
+
+[1]: http://www.cs.huji.ac.il/~lirchi/AIP/Tetris3.pdf

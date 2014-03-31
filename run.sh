@@ -35,14 +35,14 @@ launch_round()
 
 make build
 
-PORT_SERVER_1=
-get_free_port PORT_SERVER_1
+PORT_SERVER_1=35000
+#get_free_port PORT_SERVER_1
 launch_round $PORT_SERVER_1 4 4 score1 distributions/dist1
 
-PORT_SERVER_2=
-get_free_port PORT_SERVER_2
+PORT_SERVER_2=35001
+#get_free_port PORT_SERVER_2
 launch_round $PORT_SERVER_2 8 5 score2 distributions/dist2
 
-PORT_SERVER_3=
-get_free_port PORT_SERVER_3
+PORT_SERVER_3=35002
+#get_free_port PORT_SERVER_3
 launch_round $PORT_SERVER_3 8 6 score3 distributions/dist3

@@ -119,7 +119,7 @@ class BricksGame {
 
       foreach (col; 0 .. rotBrick[0].length) {
         int colHeight = heights[col + left];
-        long j = rotBrick.length - 1;
+        uint j = rotBrick.length - 1;
         while(!rotBrick[j--][col])
           colHeight++;
         if (colHeight < freeLine)
@@ -169,7 +169,7 @@ class BricksGame {
 
       foreach (j, ref h; heights) {
 	h = -1;
-	for(ulong i = 0; i < linesNo && board[i][j] == empty; i++) h++;
+	for(uint i = 0; i < linesNo && board[i][j] == empty; i++) h++;
       }
 
       if (verbose) writeln(this);
@@ -187,16 +187,16 @@ class BricksGame {
       immutable ulong width = nextBrick[0].length;
       immutable ulong height = nextBrick.length;
 
-      finalBrick = new bool[][rotations % 2 ? width : height];
+      finalBrick = new bool[][rotations % 2 ? cast(uint)width : cast(uint)height];
       foreach (ref row; finalBrick)
-	row = new bool[rotations % 2 ? height : width];
+	row = new bool[rotations % 2 ? cast(uint)height : cast(uint)width];
 
-      foreach (ulong lf, ref line; finalBrick)
-	foreach (ulong cf, ref cell; line) {
+      foreach (uint lf, ref line; finalBrick)
+	foreach (uint cf, ref cell; line) {
 	  immutable ulong l = oddRotations ? cf : lf;
 	  immutable ulong c = oddRotations ? lf : cf;
-	  cell = nextBrick[rotations % 3 ? height - l - 1 : l]
-	    [rotations < 2 ? c : width - c - 1];
+	  cell = nextBrick[rotations % 3 ? cast(uint)(height - l - 1) : cast(uint)l]
+	    [rotations < 2 ? cast(uint)c : cast(uint)(width - c - 1)];
         }
 
       return finalBrick;

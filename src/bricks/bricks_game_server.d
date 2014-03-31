@@ -112,6 +112,9 @@ class BricksGameServer {
       uint bricksNo = 0;
       char nextBrick;
 
+      if(gameNo % 100 == 0)
+             writeln("GAME NO ", gameNo);
+
       ulong l;
       char buf[1024];
       char[] msg1, msg2;

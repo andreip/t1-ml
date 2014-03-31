@@ -39,7 +39,7 @@ class BricklayerSarsa:
         Returns:
             an action of the form (rotation, offset).
         """
-        if line == 'GAME OVER':
+        if 'GAME OVER' in line:
             return None
 
         # Increasing epsilon has the effect of making less

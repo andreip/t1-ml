@@ -52,6 +52,10 @@ class TestBricklayerSarsa(unittest.TestCase):
         new_value = sarsa.maps[state_key]
         self.assertTrue(old_value > new_value)
 
+    def test_get_action_game_over(self):
+        line = '-20,GAME OVER'
+        self.assertEqual(self.sarsa.get_action(line), None)
+
     def test_get_action_greedy(self):
         line = '0,|    | #  |  # |   #|,A'
         board = BricklayerBoard(line.split(',')[1])

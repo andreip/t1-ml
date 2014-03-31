@@ -19,8 +19,8 @@ class BricklayerSarsa:
     def __init__(self, height, length, alpha=0.1, eps=0.1, gamma=0.8):
         self.height = height
         self.length = length
-        # By default return (rotation,left) = (0,0).
-        self.maps = defaultdict(lambda: (0,0))
+        # By default return a score of 0 for unknown.
+        self.maps = defaultdict(int)
 
         # Parameters determined empirically.
         self.alpha = alpha

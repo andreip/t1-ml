@@ -10,8 +10,8 @@ class TestBricklayerSarsa(unittest.TestCase):
         self.sarsa = BricklayerSarsa(length, height)
 
     def test_defaultdict(self):
-        self.assertEqual(self.sarsa.maps[0], (0, 0))
-        self.assertEqual(self.sarsa.maps['a'], (0, 0))
+        self.assertEqual(self.sarsa.maps[0], (0))
+        self.assertEqual(self.sarsa.maps['a'], (0))
 
 if __name__ == '__main__':
     unittest.main()

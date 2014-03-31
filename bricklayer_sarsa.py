@@ -16,11 +16,12 @@ class BricklayerSarsa:
     check the README file.
     """
 
-    def __init__(self, height, length, alpha=0.1, eps=0.1, gamma=0.8):
+    def __init__(self, height, length, alpha=0.1, eps=0.1, gamma=0.8,
+                 maps=defaultdict(int)):
         self.height = height
         self.length = length
         # By default return a score of 0 for unknown.
-        self.maps = defaultdict(int)
+        self.maps = maps
 
         # Parameters determined empirically.
         self.alpha = alpha

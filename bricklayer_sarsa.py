@@ -4,9 +4,6 @@
 from collections import defaultdict
 import random
 
-lengths =\
-    {'A':[4,1],'B':[3,2],'C':[3,2],'D':[3, 2],'E':[3,2],'F':[3,2],'G':[2,2]}
-
 class BricklayerSarsa:
     """Bricklayer class which deals with remembering SARSA learning specifics
     like:

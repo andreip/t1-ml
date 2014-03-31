@@ -22,13 +22,39 @@ class BricklayerBoard:
                 legal_actions.append((rot, offset))
         return legal_actions
 
-    def get_board_levels(self):
-        """Returns an array of height difference between addiacent columns.
+    def get_board_diff_levels(self):
+        """Returns an array of height _differences_ between addiacent columns.
         It will be used to compute a "hash" for a board and store it in a
         dictionary. This "hash" also has the property of being symetric which
         halves the number of states (significant improvement).
         """
-        pass
+        levels = self.get_board_levels()
+        diff = []
+        for i in range(1, len(levels)):
+            diff.append(abs(levels[i-1] - levels[i]))
+        return diff
+
+    def get_board_levels(self):
+        """Returns an array of all columns' levels.
+
+        w = 4, h = 3
+        |#   |
+        |  # |
+        |   #|
+        *----*
+        This should return [3, 0, 2, 1].
+
+        Returns:
+            an array [h1, h2, ... ].
+        """
+        width, height = len(self.board[0]), len(self.board)
+        levels = [0 for i in range(width)]
+        for l, line in enumerate(self.board):
+            level = height - l
+            for c, cell in enumerate(line):
+                if cell == BricklayerBoard.BRICK and levels[c] < level:
+                    levels[c] = level
+        return levels
 
     def do_move(self, action):
         """Returns a new board based on the action.

@@ -39,6 +39,9 @@ class BricklayerSarsa:
         Returns:
             an action of the form (rotation, offset).
         """
+        if line == 'GAME OVER':
+            return None
+
         # Increasing epsilon has the effect of making less
         # random choices while times passes, because the SARSA algorithm
         # will learn with time and can make more informed decisions.

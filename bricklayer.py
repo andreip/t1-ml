@@ -35,7 +35,7 @@ class BrickLayer:
             next_line = self.myreceive()
 
             # Update utilities and update (s,a) <- (s', a').
-            if next_line and "GAME OVER" not in next_line:
+            if next_line:
                 next_action = self.sarsa.get_action(next_line)
                 self.sarsa.update_utilities(line, action, next_line, next_action)
                 action = next_action

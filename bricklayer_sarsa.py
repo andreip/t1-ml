@@ -4,6 +4,8 @@
 from collections import defaultdict
 import random
 
+from bricklayer_board import BricklayerBoard
+
 class BricklayerSarsa:
     """Bricklayer class which deals with remembering SARSA learning specifics
     like:
@@ -40,10 +42,16 @@ class BricklayerSarsa:
         # will learn with time and can make more informed decisions.
         self.eps += 0.01
 
+        # Compute all the legal actions one can don from a
+        # position. Next choose among them with a stragey.
+        [_, boardStr, brick] = line.split(',')
+        board = BricklayerBoard(boardStr)
+        legal_actions = board.get_legal_actions(brick)
+
         if (random.random() <= self.eps):
-            return self.__get_action_greedy(line)
+            return self.__get_action_greedy(legal_actions)
         # Else pick a random action from all possible actions
-        return self.__get_action_random(line)
+        return self.__get_action_random(legal_actions)
 
     def update_utilities(self, line, action, next_line, next_action):
         """Update the utity self.maps based on the current
@@ -57,25 +65,16 @@ class BricklayerSarsa:
         """
         pass
 
-    def __get_action_greedy(self, line):
+    def __get_action_greedy(self, legal_actions):
         """Compute a list of possible (legal) moves from a given
         state. Choose from that list the one that maximises the
         utility function.
         """
-        #legal_moves = __get_legal_actions(line)
-        return self.__get_action_random(line)
+        return self.__get_action_random(legal_actions)
 
-    def __get_legal_actions(self, line):
-        """
-        """
-        pass
-
-    def __get_action_random(self, line):
+    def __get_action_random(self, legal_actions):
         """Simply returns a tuple of legal random
         rotation and left offset.
         """
-        rot = random.randint(0, 3)
-        max_offset = self.length - lengths[line[-1]][rot % 2]
-        offset = random.randint(0, max_offset)
-        return (rot, offset)
+        return random.choice(legal_actions)
 

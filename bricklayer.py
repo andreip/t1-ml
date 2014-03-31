@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Copyright (C) 2014 Tudor Berariu
 #
@@ -33,15 +34,23 @@ class BrickLayer:
         self.sarsa = BricklayerSarsa(height, length)
 
     def loop(self):
-        line = self.myreceive();
+        line = self.myreceive()
+        action = self.sarsa.get_action(line)
         while line:
             if "GAME OVER" not in line:
-                # Line is of the form:
-                # REWARD, STATE, BRICK
-                [rot, offset] = self.sarsa.get_action(line)
+                (rot, offset) = action
                 msg = str(rot) + "," + str(offset) + "\n"
                 self.mysend(msg)
-            line = self.myreceive()
+
+            # Get next action and its reward for s -> s'.
+            next_line = self.myreceive()
+
+            # Update utilities and update (s,a) <- (s', a').
+            if next_line and "GAME OVER" not in next_line:
+                next_action = self.sarsa.get_action(next_line)
+                self.sarsa.update_utilities(line, action, next_line, next_action)
+                action = next_action
+            line = next_line
 
     def mysend(self, msg):
         totalsent = 0

@@ -14,14 +14,15 @@ class BricklayerSarsa:
        - parameters like alpha (learning rate).
     """
 
-    def __init__(self, height, length, alpha=0.1):
+    def __init__(self, height, length, alpha=0.1, eps=0.1):
         self.height = height
         self.length = length
-        self.alpha = alpha
         # By default return (rotation,left) = (0,0).
         self.maps = defaultdict(lambda: (0,0))
-        # Initially set a big random polict, and decrease it over time.
-        self.eps = 0.1
+
+        # Parameters determined empirically.
+        self.alpha = alpha
+        self.eps = eps
 
     def get_action(self, line):
         """Get an action based on a line which encodes
@@ -31,14 +32,30 @@ class BricklayerSarsa:
         utilities built it returns an action for a
         state.
 
-        Returns an action of the form:
-            (rotation, offset) of a brick of type (int,int).
+        Returns:
+            an action of the form (rotation, offset).
         """
+        # Increasing epsilon has the effect of making less
+        # random choices while times passes, because the SARSA algorithm
+        # will learn with time and can make more informed decisions.
         self.eps += 0.01
-        if (random.random() <= eps):
-            return __get_action_greedy(line)
+
+        if (random.random() <= self.eps):
+            return self.__get_action_greedy(line)
         # Else pick a random action from all possible actions
-        return __get_action_random(line)
+        return self.__get_action_random(line)
+
+    def update_utilities(self, line, action, next_line, next_action):
+        """Update the utity self.maps based on the current
+        and next move.
+
+        Args:
+            line: current state
+            next_line: next state arriving from current state
+                       by taking an action from get_action(line).
+                       It also contains information about reward.
+        """
+        pass
 
     def __get_action_greedy(self, line):
         """Compute a list of possible (legal) moves from a given
@@ -46,7 +63,7 @@ class BricklayerSarsa:
         utility function.
         """
         #legal_moves = __get_legal_actions(line)
-        pass
+        return self.__get_action_random(line)
 
     def __get_legal_actions(self, line):
         """

@@ -4,7 +4,6 @@ build/
 *.o
 *.pyc*
 \#*#
-score*
 bricks_server
 brickmaker
 bricks.zip

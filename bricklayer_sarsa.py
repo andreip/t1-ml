@@ -16,7 +16,7 @@ class BricklayerSarsa:
     check the README file.
     """
 
-    def __init__(self, height, length, alpha=0.1, eps=0.1, gamma=0.8,
+    def __init__(self, height, length, alpha=0.3, eps=0.1, gamma=0.8,
                  maps=defaultdict(int)):
         self.height = height
         self.length = length

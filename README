@@ -6,6 +6,9 @@ Idei reprezentari stari
 L - #linii
 C - #coloane
 
+Am inclus si simetria ca potential de utilizare insa n-am folosit-o fiindca era
+mai dificil de programat.
+
 Folodind idei din [1], am decis sa aleg urmatoarele strategii (calcule facute
 pentru o tabla generica de L x C):
 - folosind Skyline, voi retine doar o lista de diferente intre coloane adiacente
@@ -33,8 +36,8 @@ sau goala.
 Concret, numar stari, inclusiv piese
 ====================================
 
-Pentru maxim LxC = 10x6, avem un numar de stari Prag^5 / 2. Fie Prag = 5, deci
-maxim 1562 stari < 2^11 stari.
+Pentru ca in implementare folosesc numai prima tehnica (Skyline),
+pentru maxim LxC = 10x6, avem un numar de stari 10^5 ~ 2^16-2^17 maxim stari.
 
 Avem 7 piese (A-G):
 => o piesa are 2^2 miscari stanga (medie) x 2^2 rotiri = 2^4 miscari
@@ -46,9 +49,32 @@ Total
 
 => Maxim stari folosind ideile prezentate este:
 
-  2^7 stari piese * 2^11 stari tabla = 2^18 stari totale
+  2^7 stari piese * 2^17 stari tabla = 2^24 stari totale
 
 , reprezentabil intr-un calculator modern fara prea mari batai de cap.
 
 
+Grafic, plot octave
+===================
+
+Fisierele implicate sunt in directorul grafice/.
+
+Am folosit myfun.m si urmatoarele comenzi:
+>>> load score2
+>>> length(score2)
+ans =  100000
+>>> plot(1:length(score2), score2, 'bx')
+>>> hold on
+>>> avgs_line = myfun(score2);
+>>> length(avgs_line)
+ans =  1000
+>>> plot(linspace(1,length(score2),length(avgs_line)), avgs_line, 'r-')
+
+Am reusit sa rulez pentru 100k date doar pentru dist2 si am adaugat un grafic
+in directorul grafice/.
+
+Voi mai adauga un fisier score3 cu 100k date sau mai mult la adresa[2], cu
+aceeasi arhiva trimisa acum, aceiasi parametri alpha,gamma,delta.
+
 [1]: http://www.cs.huji.ac.il/~lirchi/AIP/Tetris3.pdf
+[2]: http://swarm.cs.pub.ro/~anpetre/.ml-t1/

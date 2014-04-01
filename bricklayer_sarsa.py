@@ -45,7 +45,8 @@ class BricklayerSarsa:
         # Increasing epsilon has the effect of making less
         # random choices while times passes, because the SARSA algorithm
         # will learn with time and can make more informed decisions.
-        self.eps += 0.01
+        if self.eps < 0.9:
+           self.eps += 0.01
 
         # Compute all the legal actions one can don from a
         # position. Next choose among them with a stragey.
